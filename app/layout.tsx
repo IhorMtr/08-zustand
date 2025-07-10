@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     'NoteHub is a simple and powerful app for creating personal notes. Capture ideas, organize thoughts, and keep everything in one place, anytime, anywhere.',
   openGraph: {
     type: 'website',
-    url: 'https://example.com',
+    url: 'https://08-zustand-one.vercel.app',
     title: 'NoteHub — Personal Note-Taking App',
     description:
       'NoteHub is a simple and reliable app for creating and storing personal notes. Keep your thoughts organized and accessible anytime.',
