@@ -7,10 +7,9 @@ import { Toaster } from 'react-hot-toast';
 import { useDebounce } from 'use-debounce';
 import NoteList from '@/components/NoteList/NoteList';
 import Pagination from '@/components/Pagination/Pagination';
-import Modal from '@/components/Modal/Modal';
 import SearchBox from '@/components/SearchBox/SearchBox';
 import type { Response } from '@/types/response';
-import NoteForm from '@/components/NoteForm/NoteForm';
+import Link from 'next/link';
 
 type NotesProps = {
   initialData: Response;
@@ -19,7 +18,6 @@ type NotesProps = {
 
 export default function Notes({ initialData, tag }: NotesProps) {
   const [currentPage, setCurrentPage] = useState(1);
-  const [isModalOpened, setIsModalOpened] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [debouncedQuery] = useDebounce(searchQuery, 300);
 
@@ -39,17 +37,9 @@ export default function Notes({ initialData, tag }: NotesProps) {
     setCurrentPage(currentPage);
   }
 
-  function handleModalOpener(): void {
-    setIsModalOpened(true);
-  }
-
   function handleSearchChange(query: string): void {
     setSearchQuery(query);
     setCurrentPage(1);
-  }
-
-  function toggleModal() {
-    setIsModalOpened(!isModalOpened);
   }
 
   return (
@@ -63,15 +53,10 @@ export default function Notes({ initialData, tag }: NotesProps) {
             onPageChange={handlePageChange}
           />
         )}
-        <button className={css.button} onClick={handleModalOpener}>
+        <Link href="/notes/action/create" className={css.button}>
           Create note +
-        </button>
+        </Link>
       </header>
-      {isModalOpened && (
-        <Modal onClose={toggleModal}>
-          <NoteForm onClose={toggleModal} />
-        </Modal>
-      )}
       {data && data.notes.length !== 0 && <NoteList notes={data.notes} />}
       <Toaster />
     </div>
